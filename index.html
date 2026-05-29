@@ -1,0 +1,1182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Artesano Bar — Under the Iron Bridge</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Josefin+Sans:wght@200;300;400&display=swap");
+
+      :root {
+        --black: #0a0806;
+        --deep: #110e0a;
+        --rust: #8b3a1a;
+        --amber: #c4782a;
+        --gold: #d4a853;
+        --cream: #e8dcc8;
+        --smoke: #9e9488;
+        --iron: #2a2520;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--black);
+        color: var(--cream);
+        font-family: "Cormorant Garamond", serif;
+        overflow-x: hidden;
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 3rem;
+        background: linear-gradient(
+          to bottom,
+          rgba(10, 8, 6, 0.95),
+          transparent
+        );
+      }
+      .nav-logo {
+        font-family: "Playfair Display", serif;
+        font-size: 1.1rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+      .nav-links {
+        display: flex;
+        gap: 2.5rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-family: "Josefin Sans", sans-serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--smoke);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      .nav-links a:hover {
+        color: var(--gold);
+      }
+
+      .hero {
+        height: 100vh;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse at 20% 50%,
+            rgba(139, 58, 26, 0.15) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse at 80% 30%,
+            rgba(196, 120, 42, 0.1) 0%,
+            transparent 50%
+          ),
+          linear-gradient(
+            180deg,
+            var(--black) 0%,
+            #0f0b07 50%,
+            var(--black) 100%
+          );
+      }
+      .bridge-svg {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        opacity: 0.35;
+      }
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        animation: fadeUp 1.4s ease both;
+      }
+      .hero-eyebrow {
+        font-family: "Josefin Sans", sans-serif;
+        font-size: 0.65rem;
+        letter-spacing: 0.45em;
+        text-transform: uppercase;
+        color: var(--amber);
+        margin-bottom: 1.5rem;
+        animation: fadeUp 1.4s 0.2s ease both;
+        opacity: 0;
+      }
+      .hero-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(3.5rem, 9vw, 8rem);
+        font-weight: 400;
+        line-height: 0.95;
+        color: var(--cream);
+        margin-bottom: 1rem;
+        animation: fadeUp 1.4s 0.4s ease both;
+        opacity: 0;
+      }
+      .hero-title em {
+        font-style: italic;
+        color: var(--gold);
+        display: block;
+      }
+      .hero-sub {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.1rem;
+        font-weight: 300;
+        font-style: italic;
+        color: var(--smoke);
+        letter-spacing: 0.05em;
+        margin-top: 1.5rem;
+        animation: fadeUp 1.4s 0.6s ease both;
+        opacity: 0;
+      }
+      .hero-cta {
+        margin-top: 3rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        font-family: "Josefin Sans", sans-serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--gold);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(212, 168, 83, 0.3);
+        padding-bottom: 0.4rem;
+        animation: fadeUp 1.4s 0.8s ease both;
+        opacity: 0;
+        cursor: pointer;
+        transition: gap 0.3s;
+      }
+      .hero-cta:hover {
+        gap: 1.5rem;
+      }
+      .hero-cta::after {
+        content: "↓";
+      }
+
+      .iron-divider {
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          var(--rust),
+          var(--amber),
+          var(--rust),
+          transparent
+        );
+      }
+
+      .scene {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 70vh;
+        align-items: stretch;
+      }
+      .scene.reverse {
+        direction: rtl;
+      }
+      .scene.reverse > * {
+        direction: ltr;
+      }
+
+      .scene-visual {
+        position: relative;
+        overflow: hidden;
+        min-height: 500px;
+      }
+      .scene-illustration {
+        width: 100%;
+        height: 100%;
+        min-height: 500px;
+        display: block;
+      }
+      .scene-text {
+        padding: 5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: var(--deep);
+      }
+      .scene-number {
+        font-family: "Playfair Display", serif;
+        font-size: 5rem;
+        font-weight: 700;
+        color: rgba(139, 58, 26, 0.15);
+        line-height: 1;
+        margin-bottom: -1rem;
+      }
+      .scene-label {
+        font-family: "Josefin Sans", sans-serif;
+        font-size: 0.6rem;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: var(--amber);
+        margin-bottom: 1.2rem;
+      }
+      .scene-title {
+        font-family: "Playfair Display", serif;
+        font-size: 2.4rem;
+        font-weight: 400;
+        line-height: 1.2;
+        color: var(--cream);
+        margin-bottom: 1.5rem;
+      }
+      .scene-title em {
+        font-style: italic;
+        color: var(--gold);
+      }
+      .scene-body {
+        font-size: 1.05rem;
+        font-weight: 300;
+        line-height: 1.8;
+        color: var(--smoke);
+        max-width: 38ch;
+      }
+
+      .menu-section {
+        padding: 8rem 3rem;
+        background: var(--iron);
+        text-align: center;
+      }
+      .section-eyebrow {
+        font-family: "Josefin Sans", sans-serif;
+        font-size: 0.65rem;
+        letter-spacing: 0.45em;
+        text-transform: uppercase;
+        color: var(--amber);
+        margin-bottom: 1rem;
+      }
+      .section-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        font-weight: 400;
+        color: var(--cream);
+        margin-bottom: 4rem;
+      }
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        max-width: 900px;
+        margin: 0 auto;
+        background: rgba(139, 58, 26, 0.2);
+      }
+      .menu-item {
+        background: var(--iron);
+        padding: 2.5rem 2rem;
+        text-align: left;
+        transition: background 0.3s;
+        cursor: pointer;
+      }
+      .menu-item:hover {
+        background: rgba(139, 58, 26, 0.12);
+      }
+      .menu-item-name {
+        font-family: "Playfair Display", serif;
+        font-size: 1.15rem;
+        color: var(--cream);
+        margin-bottom: 0.4rem;
+      }
+      .menu-item-desc {
+        font-size: 0.85rem;
+        color: var(--smoke);
+        font-style: italic;
+        line-height: 1.5;
+        margin-bottom: 1rem;
+      }
+      .menu-item-price {
+        font-family: "Josefin Sans", sans-serif;
+        font-size: 0.75rem;
+        letter-spacing: 0.15em;
+        color: var(--gold);
+      }
+
+      .reserve-section {
+        padding: 8rem 3rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .reserve-bg {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse at center,
+          rgba(139, 58, 26, 0.12) 0%,
+          transparent 70%
+        );
+      }
+      .reserve-section .section-title {
+        margin-bottom: 1.5rem;
+      }
+      .reserve-sub {
+        font-size: 1.1rem;
+        font-style: italic;
+        color: var(--smoke);
+        margin-bottom: 3rem;
+        font-weight: 300;
+      }
+      .reserve-btn {
+        display: inline-block;
+        padding: 1.2rem 3.5rem;
+        border: 1px solid var(--rust);
+        font-family: "Josefin Sans", sans-serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--gold);
+        background: none;
+        cursor: pointer;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+      .reserve-btn:hover {
+        background: var(--rust);
+        color: var(--cream);
+      }
+
+      footer {
+        padding: 3rem;
+        border-top: 1px solid rgba(139, 58, 26, 0.2);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .footer-logo {
+        font-family: "Playfair Display", serif;
+        font-size: 0.9rem;
+        letter-spacing: 0.3em;
+        color: var(--gold);
+      }
+      .footer-address {
+        font-family: "Josefin Sans", sans-serif;
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        color: var(--smoke);
+        text-align: center;
+      }
+      .footer-hours {
+        font-family: "Josefin Sans", sans-serif;
+        font-size: 0.65rem;
+        letter-spacing: 0.15em;
+        color: var(--smoke);
+        text-align: right;
+      }
+
+      .scroll-line {
+        position: absolute;
+        bottom: 2.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        z-index: 2;
+      }
+      .scroll-line span {
+        font-family: "Josefin Sans", sans-serif;
+        font-size: 0.55rem;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: var(--smoke);
+      }
+      .scroll-line-bar {
+        width: 1px;
+        height: 50px;
+        background: linear-gradient(to bottom, var(--amber), transparent);
+        animation: scrollPulse 2s ease-in-out infinite;
+      }
+
+      .flicker {
+        animation: flicker 3s ease-in-out infinite;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition:
+          opacity 0.9s ease,
+          transform 0.9s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes scrollPulse {
+        0%,
+        100% {
+          opacity: 0.4;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+      @keyframes flicker {
+        0%,
+        100% {
+          opacity: 0.8;
+        }
+        50% {
+          opacity: 1;
+        }
+        75% {
+          opacity: 0.6;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-logo">Artesano</div>
+      <ul class="nav-links">
+        <li><a href="#story">Our Story</a></li>
+        <li><a href="#menu">Drinks</a></li>
+        <li><a href="#reserve">Reserve</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+
+      <svg
+        class="bridge-svg"
+        viewBox="0 0 1440 320"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0 280 Q360 260 720 275 Q1080 290 1440 270 L1440 320 L0 320 Z"
+          fill="#0f0b07"
+        />
+        <rect x="0" y="210" width="1440" height="8" fill="#1a1410" />
+        <path
+          d="M120 210 Q240 100 360 210"
+          stroke="#2a2018"
+          stroke-width="6"
+          fill="none"
+        />
+        <path
+          d="M420 210 Q600 60 780 210"
+          stroke="#2a2018"
+          stroke-width="7"
+          fill="none"
+        />
+        <path
+          d="M840 210 Q960 100 1080 210"
+          stroke="#2a2018"
+          stroke-width="6"
+          fill="none"
+        />
+        <path
+          d="M1100 210 Q1260 120 1420 210"
+          stroke="#2a2018"
+          stroke-width="5"
+          fill="none"
+        />
+        <rect x="358" y="210" width="10" height="110" fill="#1a1410" />
+        <rect x="774" y="210" width="12" height="110" fill="#1a1410" />
+        <rect x="1076" y="210" width="10" height="110" fill="#1a1410" />
+        <line
+          x1="160"
+          y1="210"
+          x2="160"
+          y2="170"
+          stroke="#1a1410"
+          stroke-width="2"
+        />
+        <line
+          x1="220"
+          y1="210"
+          x2="220"
+          y2="162"
+          stroke="#1a1410"
+          stroke-width="2"
+        />
+        <line
+          x1="280"
+          y1="210"
+          x2="280"
+          y2="153"
+          stroke="#1a1410"
+          stroke-width="2"
+        />
+        <line
+          x1="480"
+          y1="210"
+          x2="480"
+          y2="145"
+          stroke="#1a1410"
+          stroke-width="2"
+        />
+        <line
+          x1="540"
+          y1="210"
+          x2="540"
+          y2="122"
+          stroke="#1a1410"
+          stroke-width="2"
+        />
+        <line
+          x1="600"
+          y1="210"
+          x2="600"
+          y2="110"
+          stroke="#1a1410"
+          stroke-width="2"
+        />
+        <line
+          x1="660"
+          y1="210"
+          x2="660"
+          y2="122"
+          stroke="#1a1410"
+          stroke-width="2"
+        />
+        <line
+          x1="720"
+          y1="210"
+          x2="720"
+          y2="145"
+          stroke="#1a1410"
+          stroke-width="2"
+        />
+        <ellipse
+          cx="600"
+          cy="218"
+          rx="200"
+          ry="12"
+          fill="rgba(196,120,42,0.08)"
+        />
+      </svg>
+
+      <div class="hero-content">
+        <p class="hero-eyebrow">Manayunk · Philadelphia · Est. 2025</p>
+        <h1 class="hero-title">
+          Under the<br />
+          <em>Iron Bridge</em>
+        </h1>
+        <p class="hero-sub">Where the forge meets the pour.</p>
+        <a
+          class="hero-cta"
+          onclick="
+            document
+              .getElementById('story')
+              .scrollIntoView({ behavior: 'smooth' })
+          "
+          >Enter the space</a
+        >
+      </div>
+
+      <div class="scroll-line">
+        <span>Scroll</span>
+        <div class="scroll-line-bar"></div>
+      </div>
+    </section>
+
+    <div class="iron-divider"></div>
+
+    <!-- SCENE 1 -->
+    <section id="story">
+      <div class="scene reveal">
+        <div class="scene-visual">
+          <svg
+            class="scene-illustration"
+            viewBox="0 0 700 500"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect width="700" height="500" fill="#0d0b08" />
+            <defs>
+              <radialGradient id="g1" cx="50%" cy="40%" r="50%">
+                <stop offset="0%" stop-color="rgba(196,120,42,0.18)" />
+                <stop offset="100%" stop-color="transparent" />
+              </radialGradient>
+            </defs>
+            <rect width="700" height="500" fill="url(#g1)" />
+            <path
+              d="M50 400 Q350 80 650 400"
+              stroke="#3a2e22"
+              stroke-width="10"
+              fill="none"
+            />
+            <path
+              d="M100 400 Q350 130 600 400"
+              stroke="#2a2018"
+              stroke-width="4"
+              fill="none"
+            />
+            <rect x="0" y="398" width="700" height="10" fill="#1c1610" />
+            <line
+              x1="150"
+              y1="398"
+              x2="150"
+              y2="340"
+              stroke="#2a2018"
+              stroke-width="3"
+            />
+            <line
+              x1="200"
+              y1="398"
+              x2="200"
+              y2="318"
+              stroke="#2a2018"
+              stroke-width="3"
+            />
+            <line
+              x1="250"
+              y1="398"
+              x2="250"
+              y2="300"
+              stroke="#2a2018"
+              stroke-width="3"
+            />
+            <line
+              x1="300"
+              y1="398"
+              x2="300"
+              y2="290"
+              stroke="#2a2018"
+              stroke-width="3"
+            />
+            <line
+              x1="350"
+              y1="398"
+              x2="350"
+              y2="287"
+              stroke="#2a2018"
+              stroke-width="3"
+            />
+            <line
+              x1="400"
+              y1="398"
+              x2="400"
+              y2="290"
+              stroke="#2a2018"
+              stroke-width="3"
+            />
+            <line
+              x1="450"
+              y1="398"
+              x2="450"
+              y2="300"
+              stroke="#2a2018"
+              stroke-width="3"
+            />
+            <line
+              x1="500"
+              y1="398"
+              x2="500"
+              y2="318"
+              stroke="#2a2018"
+              stroke-width="3"
+            />
+            <line
+              x1="550"
+              y1="398"
+              x2="550"
+              y2="340"
+              stroke="#2a2018"
+              stroke-width="3"
+            />
+            <circle
+              cx="350"
+              cy="398"
+              r="4"
+              fill="rgba(212,168,83,0.8)"
+              class="flicker"
+            />
+            <circle cx="200" cy="398" r="3" fill="rgba(212,168,83,0.5)" />
+            <circle cx="500" cy="398" r="3" fill="rgba(212,168,83,0.6)" />
+            <path
+              d="M0 408 Q175 420 350 410 Q525 400 700 415 L700 500 L0 500 Z"
+              fill="#080604"
+              opacity="0.9"
+            />
+            <path
+              d="M150 430 Q350 415 550 430"
+              stroke="rgba(212,168,83,0.1)"
+              stroke-width="1"
+              fill="none"
+            />
+            <circle cx="80" cy="50" r="1" fill="rgba(232,220,200,0.4)" />
+            <circle cx="180" cy="30" r="1" fill="rgba(232,220,200,0.3)" />
+            <circle cx="500" cy="60" r="1.5" fill="rgba(232,220,200,0.4)" />
+            <circle cx="620" cy="25" r="1" fill="rgba(232,220,200,0.3)" />
+          </svg>
+        </div>
+        <div class="scene-text">
+          <div class="scene-number">01</div>
+          <p class="scene-label">Arriving</p>
+          <h2 class="scene-title">
+            The bridge calls you<br /><em>from the street.</em>
+          </h2>
+          <p class="scene-body">
+            You hear it before you see it — the low hum of conversation rising
+            from below the Manayunk arch. The kind of place you stumble into
+            once and never quite forget.
+          </p>
+        </div>
+      </div>
+
+      <div class="iron-divider"></div>
+
+      <!-- SCENE 2 -->
+      <div class="scene reverse reveal">
+        <div class="scene-visual">
+          <svg
+            class="scene-illustration"
+            viewBox="0 0 700 500"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect width="700" height="500" fill="#100d09" />
+            <defs>
+              <radialGradient id="g2" cx="50%" cy="60%" r="50%">
+                <stop offset="0%" stop-color="rgba(139,58,26,0.2)" />
+                <stop offset="100%" stop-color="transparent" />
+              </radialGradient>
+            </defs>
+            <rect width="700" height="500" fill="url(#g2)" />
+            <line
+              x1="100"
+              y1="0"
+              x2="100"
+              y2="500"
+              stroke="#1e1812"
+              stroke-width="8"
+            />
+            <line
+              x1="200"
+              y1="0"
+              x2="200"
+              y2="500"
+              stroke="#1e1812"
+              stroke-width="8"
+            />
+            <line
+              x1="300"
+              y1="0"
+              x2="300"
+              y2="500"
+              stroke="#1e1812"
+              stroke-width="8"
+            />
+            <line
+              x1="400"
+              y1="0"
+              x2="400"
+              y2="500"
+              stroke="#1e1812"
+              stroke-width="8"
+            />
+            <line
+              x1="500"
+              y1="0"
+              x2="500"
+              y2="500"
+              stroke="#1e1812"
+              stroke-width="8"
+            />
+            <line
+              x1="600"
+              y1="0"
+              x2="600"
+              y2="500"
+              stroke="#1e1812"
+              stroke-width="8"
+            />
+            <line
+              x1="0"
+              y1="100"
+              x2="700"
+              y2="100"
+              stroke="#1e1812"
+              stroke-width="5"
+            />
+            <line
+              x1="0"
+              y1="250"
+              x2="700"
+              y2="250"
+              stroke="#1e1812"
+              stroke-width="5"
+            />
+            <line
+              x1="0"
+              y1="400"
+              x2="700"
+              y2="400"
+              stroke="#1e1812"
+              stroke-width="5"
+            />
+            <circle
+              cx="100"
+              cy="100"
+              r="12"
+              stroke="#2e2418"
+              stroke-width="3"
+              fill="none"
+            />
+            <circle
+              cx="300"
+              cy="100"
+              r="12"
+              stroke="#2e2418"
+              stroke-width="3"
+              fill="none"
+            />
+            <circle
+              cx="500"
+              cy="100"
+              r="12"
+              stroke="#2e2418"
+              stroke-width="3"
+              fill="none"
+            />
+            <circle
+              cx="100"
+              cy="250"
+              r="12"
+              stroke="#2e2418"
+              stroke-width="3"
+              fill="none"
+            />
+            <circle
+              cx="300"
+              cy="250"
+              r="12"
+              stroke="#2e2418"
+              stroke-width="3"
+              fill="none"
+            />
+            <circle
+              cx="500"
+              cy="250"
+              r="12"
+              stroke="#2e2418"
+              stroke-width="3"
+              fill="none"
+            />
+            <rect
+              x="105"
+              y="105"
+              width="90"
+              height="140"
+              fill="rgba(196,120,42,0.05)"
+            />
+            <rect
+              x="305"
+              y="105"
+              width="90"
+              height="140"
+              fill="rgba(196,120,42,0.07)"
+            />
+            <ellipse
+              cx="350"
+              cy="490"
+              rx="300"
+              ry="60"
+              fill="rgba(139,58,26,0.15)"
+            />
+            <circle
+              cx="350"
+              cy="300"
+              r="2"
+              fill="rgba(212,168,83,0.6)"
+              class="flicker"
+            />
+            <circle cx="280" cy="320" r="1.5" fill="rgba(212,168,83,0.4)" />
+          </svg>
+        </div>
+        <div class="scene-text">
+          <div class="scene-number">02</div>
+          <p class="scene-label">The Craft</p>
+          <h2 class="scene-title">
+            Twenty years of iron,<br /><em>bent by hand.</em>
+          </h2>
+          <p class="scene-body">
+            Every railing, every bracket, every hinge tells the story of the
+            ironworks that built this place. Art that was never meant to hang on
+            a wall — it holds the room together.
+          </p>
+        </div>
+      </div>
+
+      <div class="iron-divider"></div>
+
+      <!-- SCENE 3 -->
+      <div class="scene reveal">
+        <div class="scene-visual">
+          <svg
+            class="scene-illustration"
+            viewBox="0 0 700 500"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect width="700" height="500" fill="#0d0b08" />
+            <defs>
+              <radialGradient id="g3" cx="50%" cy="50%" r="40%">
+                <stop offset="0%" stop-color="rgba(196,120,42,0.25)" />
+                <stop offset="100%" stop-color="transparent" />
+              </radialGradient>
+            </defs>
+            <rect width="700" height="500" fill="url(#g3)" />
+            <rect x="0" y="370" width="700" height="130" fill="#100d09" />
+            <rect x="0" y="368" width="700" height="6" fill="#1e1812" />
+            <path
+              d="M280 150 L420 150 L380 310 L320 310 Z"
+              fill="rgba(196,120,42,0.12)"
+              stroke="rgba(196,120,42,0.3)"
+              stroke-width="1.5"
+            />
+            <path
+              d="M290 220 L410 220 L385 310 L315 310 Z"
+              fill="rgba(139,58,26,0.35)"
+            />
+            <polygon
+              points="320,235 345,220 360,238 335,252"
+              fill="rgba(200,190,180,0.12)"
+              stroke="rgba(200,190,180,0.2)"
+              stroke-width="1"
+            />
+            <line
+              x1="350"
+              y1="310"
+              x2="350"
+              y2="360"
+              stroke="rgba(196,120,42,0.3)"
+              stroke-width="2"
+            />
+            <ellipse
+              cx="350"
+              cy="362"
+              rx="45"
+              ry="8"
+              fill="none"
+              stroke="rgba(196,120,42,0.25)"
+              stroke-width="2"
+            />
+            <path
+              d="M340 155 Q320 120 305 130"
+              stroke="rgba(100,140,60,0.5)"
+              stroke-width="2"
+              fill="none"
+            />
+            <circle cx="305" cy="130" r="4" fill="rgba(100,140,60,0.4)" />
+            <rect
+              x="80"
+              y="280"
+              width="20"
+              height="80"
+              rx="3"
+              fill="rgba(50,35,20,0.6)"
+              stroke="rgba(80,55,30,0.4)"
+              stroke-width="1"
+            />
+            <rect
+              x="115"
+              y="270"
+              width="18"
+              height="90"
+              rx="3"
+              fill="rgba(50,35,20,0.5)"
+              stroke="rgba(80,55,30,0.3)"
+              stroke-width="1"
+            />
+            <rect
+              x="148"
+              y="285"
+              width="20"
+              height="75"
+              rx="3"
+              fill="rgba(50,35,20,0.6)"
+              stroke="rgba(80,55,30,0.4)"
+              stroke-width="1"
+            />
+            <rect
+              x="520"
+              y="278"
+              width="20"
+              height="82"
+              rx="3"
+              fill="rgba(50,35,20,0.5)"
+              stroke="rgba(80,55,30,0.3)"
+              stroke-width="1"
+            />
+            <rect
+              x="555"
+              y="268"
+              width="18"
+              height="92"
+              rx="3"
+              fill="rgba(50,35,20,0.6)"
+              stroke="rgba(80,55,30,0.4)"
+              stroke-width="1"
+            />
+            <rect x="0" y="362" width="700" height="3" fill="#1e1812" />
+            <ellipse
+              cx="180"
+              cy="372"
+              rx="8"
+              ry="3"
+              fill="rgba(196,120,42,0.2)"
+            />
+            <path
+              d="M180 372 Q178 358 180 350 Q182 358 180 372"
+              fill="rgba(212,168,83,0.6)"
+              class="flicker"
+            />
+            <ellipse
+              cx="520"
+              cy="372"
+              rx="8"
+              ry="3"
+              fill="rgba(196,120,42,0.2)"
+            />
+            <path
+              d="M520 372 Q518 358 520 350 Q522 358 520 372"
+              fill="rgba(212,168,83,0.5)"
+              class="flicker"
+            />
+          </svg>
+        </div>
+        <div class="scene-text">
+          <div class="scene-number">03</div>
+          <p class="scene-label">The Pour</p>
+          <h2 class="scene-title">
+            A drink built with<br /><em>the same intention.</em>
+          </h2>
+          <p class="scene-body">
+            No shortcuts. Every cocktail on the menu reflects the same obsessive
+            craft as the space itself. Small batches, local spirits, and
+            combinations you won't find anywhere else in Philly.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MENU -->
+    <section class="menu-section" id="menu">
+      <p class="section-eyebrow">What We Pour</p>
+      <h2 class="section-title">The Bar Menu</h2>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <div class="menu-item-name">Iron &amp; Rye</div>
+          <div class="menu-item-desc">
+            Rye whiskey, smoked maple, black walnut bitters, expressed orange
+            peel
+          </div>
+          <div class="menu-item-price">$16</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-name">Bridge Light</div>
+          <div class="menu-item-desc">
+            Mezcal, charred pineapple, jalapeño honey, fresh lime, sal de gusano
+            rim
+          </div>
+          <div class="menu-item-price">$17</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-name">Forge Negroni</div>
+          <div class="menu-item-desc">
+            Barrel-aged gin, bitter aperitivo, sweet vermouth, cedar smoke rinse
+          </div>
+          <div class="menu-item-price">$18</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-name">The Manayunk</div>
+          <div class="menu-item-desc">
+            Local bourbon, cold brew, cacao nib syrup, salted cream float
+          </div>
+          <div class="menu-item-price">$15</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-name">River Mule</div>
+          <div class="menu-item-desc">
+            House ginger beer, vodka, Schuylkill herb infusion, candied ginger
+          </div>
+          <div class="menu-item-price">$14</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-name">No Spark</div>
+          <div class="menu-item-desc">
+            Smoked rosemary shrub, tonic, burnt citrus, soda — zero proof
+          </div>
+          <div class="menu-item-price">$11</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESERVE -->
+    <section class="reserve-section" id="reserve">
+      <div class="reserve-bg"></div>
+      <p class="section-eyebrow">Come find us</p>
+      <h2 class="section-title">Reserve Your Table</h2>
+      <p class="reserve-sub">
+        Under the bridge, above the river.<br />109 Green Lane, Manayunk —
+        Thursday through Sunday.
+      </p>
+      <button class="reserve-btn">Book a Table</button>
+    </section>
+
+    <footer>
+      <div class="footer-logo">Artesano Bar</div>
+      <div class="footer-address">
+        109 Green Lane · Manayunk · Philadelphia, PA 19127
+      </div>
+      <div class="footer-hours">
+        Thu–Fri 5pm–2am · Sat 3pm–2am · Sun 2pm–10pm
+      </div>
+    </footer>
+
+    <script>
+      const reveals = document.querySelectorAll(".reveal");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.15 },
+      );
+      reveals.forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>
